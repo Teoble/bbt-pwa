@@ -1,0 +1,1 @@
+ $(document).on('click', '#animate', () => $('#container').fadeToggle(1000))
