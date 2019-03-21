@@ -43,7 +43,7 @@ self.addEventListener('fetch', function(event){
                         return response;
                     }                         
                     else{
-                        addAssestToCache(event.request.url);
+                        addAssetToCache(event.request.url);
                         return fetch(event.request);
                     }                        
                 });                
