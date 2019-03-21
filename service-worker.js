@@ -11,9 +11,7 @@ let db;
 self.addEventListener('install', function(event){
     event.waitUntil(
         //abre o cache registrado e adiciona todos os arquivos do array
-        caches.open(CACHE_NAME).then(function(cache){
-            return cache.addAll(FILES);
-        })
+        addURLsToCache()
     )
 })
 
@@ -51,6 +49,14 @@ self.addEventListener('fetch', function(event){
         );        
 })
 
+function addURLsToCache(){
+    //abre o cache registrado e adiciona todos os arquivos do array
+    caches.delete(CACHE_NAME);
+    caches.open(CACHE_NAME).then(function(cache){
+        return cache.addAll(FILES);
+    })
+}
+
 function addAssetToCache(url){
     if(/^.*\.(css|ttf|woff|woff2|eof|js|png|jpg|gif|svg)$/ig.test(url)){
         fetch(url).then(function(response) {
@@ -74,6 +80,7 @@ function willUseCache(){
                         clear();
                         // Insere a versão
                         insert(data);
+                        addURLsToCache();
                         // e retorna que não irá usar o cache
                         resolve(false);
                     }else{

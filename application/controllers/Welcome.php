@@ -26,6 +26,6 @@ class Welcome extends CI_Controller {
 	public function version(){
 		$this->output
 					->set_content_type('application/json')
-					->set_output(json_encode(array('version' => 'v1.0')));
+					->set_output(json_encode(array('version' => 'v3.0')));
 	}
 }
