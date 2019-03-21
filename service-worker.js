@@ -41,7 +41,7 @@ self.addEventListener('fetch', function(event){
         event.respondWith(
             caches.match(event.request).then(function(response){
                 return willUseCache().then(res => {
-                    return res && response ? response : fetch(event.request);
+                    return res && typeof response !== "undefined" ? response : fetch(event.request);
                 });                
             })
         )

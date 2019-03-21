@@ -11,7 +11,7 @@
 </head>
 
 <body>
-	<button id="animate">Fade!</button>
+	<button id="animate">Fade! with cache 2</button>
     <div id="container">
         <h1>Welcome to CodeIgniter!</h1>
 		
