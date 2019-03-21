@@ -1,11 +1,17 @@
 ::selection { background-color: #E13300; color: white; }
 ::-moz-selection { background-color: #E13300; color: white; }
 
+@font-face {
+    font-family: 'MyWebFont';
+    src: url('../font/Product\ Sans\ Regular.ttf')  format('truetype')
+  }
+
 body {
     background-color: rgb(255, 255, 255);
     margin: 40px;
     font: 13px/20px normal Helvetica, Arial, sans-serif;
     color: #4F5155;
+    font-family: 'MyWebFont'
 }
 
 a {
@@ -57,4 +63,8 @@ p.footer {
 
 button{
     margin: 10px;
+}
+
+.img-box{
+    text-align: center;
 }

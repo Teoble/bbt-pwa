@@ -1,9 +1,6 @@
 const CACHE_NAME = 'babertech-cache-1.0'
 const FILES = [
     './', //raiz do site
-    './assets/css/welcome.css',
-    './assets/js/jquery-3.3.1.min.js',
-    './assets/js/welcome.js',
 ]
 
 //variaveis de comunicação com o IndexedDB
@@ -37,15 +34,32 @@ self.addEventListener('activate', function (event) {
 });
 
 self.addEventListener('fetch', function(event){    
-        //verifica na API se há uma versão nova, se houver pega do servidor senão, pega do cache
+        //verifica na API se há uma versão nova, se houver pega do servidor senão, pega do cache 
+        let isFromCache;
         event.respondWith(
             caches.match(event.request).then(function(response){
                 return willUseCache().then(res => {
-                    return res && typeof response !== "undefined" ? response : fetch(event.request);
+                    if(res && typeof response !== "undefined"){
+                        return response;
+                    }                         
+                    else{
+                        addAssestToCache(event.request.url);
+                        return fetch(event.request);
+                    }                        
                 });                
             })
-        )
+        );        
 })
+
+function addAssestToCache(url){
+    if(/^.*\.(css|ttf|woff|woff2|eof|js|png|jpg|gif|svg)$/ig.test(url)){
+        fetch(url).then(function(response) {
+            return caches.open(CACHE_NAME).then(function(cache) {
+                return cache.put(url, response);
+            });
+        });
+    }
+}
 
 function willUseCache(){
     return new Promise(resolve => {

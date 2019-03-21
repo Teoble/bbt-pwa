@@ -11,7 +11,7 @@
 </head>
 
 <body>
-	<button id="animate">Fade! with cache 2</button>
+	<button id="animate">Fade! with cache</button>
     <div id="container">
         <h1>Welcome to CodeIgniter!</h1>
 		
@@ -26,6 +26,9 @@
 
             <p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a
 					href="user_guide/">User Guide</a>.</p>
+            <div class="img-box">
+                <img src="assets/img/ci.png" />
+            </div>
         </div>
 	</div>
 	<script src="assets/js/intaller.sv.js"></script>
