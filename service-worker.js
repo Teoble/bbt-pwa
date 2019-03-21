@@ -51,7 +51,11 @@ self.addEventListener('fetch', function(event){
         );        
 })
 
+<<<<<<< HEAD
 function addAssetToCache(url){
+=======
+function addAssestToCache(url){
+>>>>>>> ba0b7e9db835f7954a8fe0ea20528547b4351024
     if(/^.*\.(css|ttf|woff|woff2|eof|js|png|jpg|gif|svg)$/ig.test(url)){
         fetch(url).then(function(response) {
             return caches.open(CACHE_NAME).then(function(cache) {
