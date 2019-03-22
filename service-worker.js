@@ -3,6 +3,8 @@ const FILES = [
     './', //raiz do site
 ]
 
+const URL = "http://localhost:8000"
+
 //variaveis de comunicação com o IndexedDB
 let request;
 let db;
@@ -33,10 +35,9 @@ self.addEventListener('activate', function (event) {
 
 self.addEventListener('fetch', function(event){    
         //verifica na API se há uma versão nova, se houver pega do servidor senão, pega do cache 
-        let isFromCache;
         event.respondWith(
             caches.match(event.request).then(function(response){
-                return willUseCache().then(res => {
+                return willUseCache(event.request.url).then(res => {
                     if(res && typeof response !== "undefined"){
                         return response;
                     }                         
@@ -67,9 +68,12 @@ function addAssetToCache(url){
     }
 }
 
-function willUseCache(){
+function willUseCache(url){
     return new Promise(resolve => {
-        //pega versão na API
+        //Se for algum arquivo de asset retorna resposta para pegar do cache
+        if(url !== URL + "/")
+            return resolve(true);
+        //Se a requisição for a raiz "/", pega versão na API
         getVersion().then(data =>{   
             //inicia IndexdDB
             startDB().then(() => {
@@ -99,7 +103,7 @@ function willUseCache(){
 
 function getVersion(){
     // Chama a API
-    return fetch('http://localhost:8000/welcome/version').then(
+    return fetch(URL + '/welcome/version').then(
         res => res.json()
     );
 }
