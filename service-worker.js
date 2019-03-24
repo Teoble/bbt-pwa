@@ -1,6 +1,7 @@
 const CACHE_NAME = 'babertech-cache-1.0'
 const FILES = [
     './', //raiz do site
+    './service-worker.js'
 ]
 
 const URL = "http://localhost:8000"
@@ -14,7 +15,7 @@ self.addEventListener('install', function(event){
     event.waitUntil(
         //abre o cache registrado e adiciona todos os arquivos do array
         addURLsToCache()
-    )
+    );
 })
 
 self.addEventListener('activate', function (event) {
@@ -43,7 +44,7 @@ self.addEventListener('fetch', function(event){
                     }                         
                     else{
                         addAssetToCache(event.request.url);
-                        return fetch(event.request);
+                        return fetch(event.request.url+"?v="+Math.random());
                     }                        
                 });                
             })
@@ -60,7 +61,7 @@ function addURLsToCache(){
 
 function addAssetToCache(url){
     if(/^.*\.(css|ttf|woff|woff2|eof|js|png|jpg|gif|svg)$/ig.test(url)){
-        fetch(url).then(function(response) {
+        fetch(url+"?v="+Math.random()).then(function(response) {
             return caches.open(CACHE_NAME).then(function(cache) {
                 return cache.put(url, response);
             });
